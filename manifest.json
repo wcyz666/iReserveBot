@@ -1,0 +1,40 @@
+{
+  "name": "AutomaticLgin",
+  "manifest_version": 2,
+
+  "version": "0.1",
+
+  "content_security_policy": "script-src 'self'; object-src 'self'",
+
+  "description": "For CSCI4140",
+
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  },
+
+  "browser_action": {
+    "default_icon": "icons/icon48.png",
+    "default_popup": "popup.html"
+  },
+
+  "icons": {
+    "128": "icons/icon128.png",
+    "48": "icons/icon48.png",
+    "16": "icons/icon16.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["http://www.facebook.com/*", "https://www.facebook.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ],
+
+  "permissions": [
+    "activeTab",
+    "storage",
+    "tabs"
+  ]
+}
