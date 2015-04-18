@@ -10,21 +10,40 @@
         <h2>Login Details</h2>
         <form>
             <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                <label for="form-id">Form ID</label>
+                <input required="required" type="text" class="form-control" id="form-id" placeholder="Enter Form ID">
             </div>
+            <hr />
             <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                <label for="login-id">Login Field ID</label>
+                <input required="required" type="text" class="form-control" id="login-id" placeholder="Enter Login Field ID">
+                <label for="login-value">Login Name Field Value</label>
+                <input type="email" class="form-control" id="login-value" placeholder="Enter Login Name Field Value">
             </div>
+            <hr />
             <div class="form-group">
-                <label for="captcha">Captcha</label>
-                <input type="text" class="form-control" id="captcha" placeholder="Captch">
+                <label for="password-id">Password Field ID</label>
+                <input required="required" type="text" class="form-control" id="password-id" placeholder="Enter Password Field ID">
+                <label for="password-value">Password Name Field Value</label>
+                <input type="password" class="form-control" id="password-value" placeholder="Enter Passeord Field Value">
             </div>
+            <hr />
+            <div class="form-group">
+                <label for="captcha-pic-id">Captcha Picture ID</label>
+                <input required="required" type="text" class="form-control" id="captcha-pic-id" placeholder="Enter Captcha Picture ID">
+                <label for="captcha-value">Captcha Input Field ID</label>
+                <input type="password" class="form-control" id="captcha-value" placeholder="Enter Captcha Input Field ID">
+            </div>
+            <hr />
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox"> Auto Submit?
+                </label>
+            </div>
+            <hr />
             <div class="col-xs-offset-2">
                 <button class="btn btn-success">Save</button>
-                <button class="btn btn-primary">Fill in</button>
-                <button  class="btn btn-warning">Close</button>
+                <button class="btn btn-primary">Fill & Save</button>
             </div>
         </form>
         <br />
