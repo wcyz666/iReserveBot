@@ -10,29 +10,29 @@
         <h2>Login Details</h2>
         <form>
             <div class="form-group">
-                <label for="form-id">Form ID</label>
-                <input required="required" type="text" class="form-control" id="form-id" placeholder="Enter Form ID">
+                <label for="form_id">Form ID</label>
+                <input required="required" type="text" class="form-control" id="form_id" name="form_id" placeholder="Enter Form ID">
             </div>
             <hr />
             <div class="form-group">
-                <label for="login-id">Login Field ID</label>
-                <input required="required" type="text" class="form-control" id="login-id" placeholder="Enter Login Field ID">
-                <label for="login-value">Login Name Field Value</label>
-                <input type="email" class="form-control" id="login-value" placeholder="Enter Login Name Field Value">
+                <label for="login_id">Login Field ID</label>
+                <input required="required" type="text" class="form-control" id="login_id" name="login_id" placeholder="Enter Login Field ID">
+                <label for="login_value">Login Name Field Value</label>
+                <input type="email" class="form-control" id="login_value" name="login_value" placeholder="Enter Login Name Field Value">
             </div>
             <hr />
             <div class="form-group">
-                <label for="password-id">Password Field ID</label>
-                <input required="required" type="text" class="form-control" id="password-id" placeholder="Enter Password Field ID">
-                <label for="password-value">Password Name Field Value</label>
-                <input type="password" class="form-control" id="password-value" placeholder="Enter Passeord Field Value">
+                <label for="password_id">Password Field ID</label>
+                <input required="required" type="text" class="form-control" id="password_id" name="password_id" placeholder="Enter Password Field ID">
+                <label for="password_value">Password Name Field Value</label>
+                <input type="text" class="form-control" id="password_value" name="password_value" placeholder="Enter Passeord Field Value">
             </div>
             <hr />
             <div class="form-group">
-                <label for="captcha-pic-id">Captcha Picture ID</label>
-                <input required="required" type="text" class="form-control" id="captcha-pic-id" placeholder="Enter Captcha Picture ID">
-                <label for="captcha-value">Captcha Input Field ID</label>
-                <input type="password" class="form-control" id="captcha-value" placeholder="Enter Captcha Input Field ID">
+                <label for="captcha_pic_id">Captcha Picture ID</label>
+                <input required="required" type="text" class="form-control" name="captcha_pic_id" id="captcha_pic_id" placeholder="Enter Captcha Picture ID">
+                <label for="captcha_value">Captcha Input Field ID</label>
+                <input type="text" class="form-control" name="captcha_value" id="captcha_value" placeholder="Enter Captcha Input Field ID">
             </div>
             <hr />
             <div class="checkbox">
@@ -42,11 +42,12 @@
             </div>
             <hr />
             <div class="col-xs-offset-2">
-                <button class="btn btn-success">Save</button>
-                <button class="btn btn-primary">Fill & Save</button>
+                <button id="save" class="btn btn-success">Save</button>
+                <button id="fill-save" class="btn btn-primary">Fill & Save</button>
             </div>
         </form>
         <br />
     </div>
 </body>
+<script src="popup.js"></script>
 </html>
