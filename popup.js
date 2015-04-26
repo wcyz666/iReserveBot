@@ -4,7 +4,10 @@
 var MyUtils = (function (){
 
     var keys = ["form_id", "login_id", "login_value", "password_id", "password_value", "captcha_pic_id", "captcha_value"];
-
+    var messages = {
+        saveSuccessMsg : "<div class='alert alert-success alert-dismissible' role='alert'><strong>Well done!</strong> You have saved all input.</div>",
+        warningMsg : "<div class='alert alert-warning alert-dismissible' role='alert'><strong>Warning!</strong> Better check yourself, you're not looking too good.</div>"
+    };
     var saveItem = function(name, value){
         localStorage.setItem(name, value);
     };
@@ -38,6 +41,9 @@ var MyUtils = (function (){
         el : function(id, rg){
             var range = rg || document;
             return range.getElementById(id);
+        },
+        getMsg: function (what) {
+            return messages[what];
         },
         qs : function(selector, rg){
             var range = rg || document;
@@ -75,6 +81,7 @@ var MyUtils = (function (){
             }
 
             MyUtils.saveAll(params);
+            MyUtils.el("messages").innerHTML = MyUtils.getMsg("saveSuccessMsg");
         };
     }, false);
 
