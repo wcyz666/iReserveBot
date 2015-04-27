@@ -16,7 +16,7 @@
         };
 
         var getItem = function(name){
-            return localStorage.getItem(name);
+            return localStorage.getItem(name) || "";
         };
 
         return {
@@ -33,7 +33,7 @@
                     if (item)
                         params[keys[i]] = item;
                 }
-
+                params["is_auto"] = getItem("is_auto");
                 return params;
             },
             saveAll: function(params){
@@ -65,10 +65,14 @@
             key,
             savedParams = MyUtils.getAll(),
             params;
-
+        //console.log(savedParams);
         for (key in savedParams){
-            if (savedParams.hasOwnProperty(key))
-                form.elements[key].value = savedParams[key];
+            if (savedParams.hasOwnProperty(key)) {
+                if (key == "is_auto")
+                    form.elements[key].checked = (savedParams[key] === "true");
+                else
+                    form.elements[key].value = savedParams[key];
+            }
         }
 
         var saveEvent = function(callback){
@@ -82,7 +86,8 @@
                 for (i = 0; i < keys.length; i++){
                     params[keys[i]] = form.elements[keys[i]].value;
                 }
-
+                params["is_auto"] = form.elements["is_auto"].checked;
+                //console.log(params);
                 MyUtils.saveAll(params);
                 callback && callback.apply(null);
             }

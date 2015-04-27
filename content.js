@@ -43,7 +43,7 @@
             return true;
         }
 
-        console.log(message);
+        //console.log(message);
         for (key in message){
             if (message[key].length < 1){
                 sendResponse({error: "Invalid value."});
