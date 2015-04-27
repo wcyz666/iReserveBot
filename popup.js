@@ -8,6 +8,7 @@ var MyUtils = (function (){
         saveSuccessMsg : "<div class='alert alert-success alert-dismissible' role='alert'><strong>Well done!</strong> You have saved all input.</div>",
         warningMsg : "<div class='alert alert-warning alert-dismissible' role='alert'><strong>Warning!</strong> Better check yourself, you're not looking too good.</div>"
     };
+    var ExtentionID = "gldpkdbfaapjnjlbajhhnjgpkamnllcn";
     var saveItem = function(name, value){
         localStorage.setItem(name, value);
     };
@@ -17,6 +18,7 @@ var MyUtils = (function (){
     };
 
     return {
+        ExtId : ExtentionID,
         getKeys: function() {
             return keys.slice(0);
         },
@@ -68,21 +70,29 @@ var MyUtils = (function (){
                 form.elements[key].value = savedParams[key];
         }
 
+        var saveEvent = function(callback){
 
-        MyUtils.el("save").onclick = function(event){
-            event.preventDefault();
+            return function(event) {
+                event.preventDefault();
 
-            var keys = MyUtils.getKeys(),
-                params = {},
-                i;
+                var keys = MyUtils.getKeys(),
+                    params = {},
+                    i;
 
-            for (i = 0; i < keys.length; i++){
-                params[keys[i]] = form.elements[keys[i]].value;
+                for (i = 0; i < keys.length; i++){
+                    params[keys[i]] = form.elements[keys[i]].value;
+                }
+
+                MyUtils.saveAll(params);
+                MyUtils.el("messages").innerHTML = MyUtils.getMsg("saveSuccessMsg");
+                callback && callback.apply(null);
             }
-
-            MyUtils.saveAll(params);
-            MyUtils.el("messages").innerHTML = MyUtils.getMsg("saveSuccessMsg");
         };
+        MyUtils.el("save").onclick = saveEvent();
+        MyUtils.el("fill-save").onclick = saveEvent(function(){
+            chrome.runtime.sendMessage(MyUtils.ExtId, "hello world");
+        });
+
     }, false);
 
 })();
