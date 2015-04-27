@@ -1,7 +1,11 @@
 /**
  * Created by lenovo on 2015/4/6.
  */
+chrome.runtime.onMessage.addListener(function (message) {
+    console.log(message);
+});
 
+var OCRcode;
 
 (function init(){
     window.onload = function () {
@@ -12,9 +16,7 @@
         canvas.width = image.width;
         var imgDraw = canvas.getContext('2d');
         imgDraw.drawImage(image,0,0);
-        var string = OCRAD(imgDraw);
-        console.log(string);
-        
+        OCRcode = OCRAD(imgDraw);
     }
 
 })();

@@ -6,6 +6,7 @@ var MyUtils = (function (){
     var keys = ["form_id", "login_id", "login_value", "password_id", "password_value", "captcha_pic_id", "captcha_value"];
     var messages = {
         saveSuccessMsg : "<div class='alert alert-success alert-dismissible' role='alert'><strong>Well done!</strong> You have saved all input.</div>",
+        saveFillSuccessMsg : "<div class='alert alert-success alert-dismissible' role='alert'><strong>Well done!</strong> You have saved and filled all input.</div>",
         warningMsg : "<div class='alert alert-warning alert-dismissible' role='alert'><strong>Warning!</strong> Better check yourself, you're not looking too good.</div>"
     };
     var ExtentionID = "gldpkdbfaapjnjlbajhhnjgpkamnllcn";
@@ -64,7 +65,9 @@ var MyUtils = (function (){
 
         var form = document.forms[0],
             key,
-            savedParams = MyUtils.getAll();
+            savedParams = MyUtils.getAll(),
+            params;
+
         for (key in savedParams){
             if (savedParams.hasOwnProperty(key))
                 form.elements[key].value = savedParams[key];
@@ -76,9 +79,8 @@ var MyUtils = (function (){
                 event.preventDefault();
 
                 var keys = MyUtils.getKeys(),
-                    params = {},
                     i;
-
+                params = {}
                 for (i = 0; i < keys.length; i++){
                     params[keys[i]] = form.elements[keys[i]].value;
                 }
@@ -90,7 +92,12 @@ var MyUtils = (function (){
         };
         MyUtils.el("save").onclick = saveEvent();
         MyUtils.el("fill-save").onclick = saveEvent(function(){
-            chrome.runtime.sendMessage(MyUtils.ExtId, "hello world");
+            chrome.tabs.query({active:	true, currentWindow: true},
+                function(tabs)	{
+                    chrome.tabs.sendMessage(tabs[0].id, params, function(response){
+                        MyUtils.el("messages").innerHTML = response && response.error ? MyUtils.getMsg("warningMsg") : MyUtils.getMsg("saveFillSuccessMsg ");
+                    });
+                });
         });
 
     }, false);
