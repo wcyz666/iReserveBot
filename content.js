@@ -29,40 +29,70 @@
 
     var allowedType = ["email", "password", "text"];
 
-    chrome.runtime.onMessage.addListener(function (messages, sender, sendResponse) {
+    window.onload = function(){
+
+        var pageHTML = (document.getElementsByTagName("html")[0].innerHTML);
+
+        chrome.runtime.sendMessage(MyUtils.ExtId, "login_info", {}, function(response){
+            var regex,
+                is_auto;
+            if (pageHTML.indexOf("alert-success") != -1){
+                return;
+            }
+            var suc = fillForm(response);
+            if (pageHTML.indexOf("alert-danger") != -1){
+                regex = /<div class="alert alert-danger" role="alert">(.*?)<\/div>/;
+                alert(regex.exec(pageHTML)[1]);
+                return;
+            }
+            is_auto = (response.is_auto === "true");
+            if (suc && re){
+                MyUtils.el(is_auto).submit();
+            }
+        });
+
+        chrome.runtime.onMessage.addListener(function (messages, sender, sendResponse) {
+            if (messages == "login_info") return false;
+            if (fillForm(messages))
+                sendResponse({status: "success"});
+            else
+                sendResponse({error: "Invalid value."});
+        });
+
+    };
+
+    function fillForm(messages){
         var key,
             item,
             message = {};
+        //console.log(messages);
         try{
             message[messages.form_id] = "form_id";
             message[messages.login_id] = messages["login_value"];
             message[messages.password_id] = messages["password_value"];
             message[messages.captcha_value] = getOCR(messages["captcha_pic_id"]);
         }catch (ex){
-            sendResponse({error: "Invalid value."});
-            return true;
+            return false;
         }
 
         //console.log(message);
         for (key in message){
             if (message[key].length < 1){
-                sendResponse({error: "Invalid value."});
-                return true;
+                return false;
             }
             item = MyUtils.el(key);
+            //console.log(item);
             if (item && item.tagName.toLowerCase() == "form")
                 continue;
             if (item && item.tagName.toLowerCase() == "input" && allowedType.indexOf(item.type.toLowerCase()) != -1){
                 item.value = message[key];
             }
             else{
-                sendResponse({error: "Can't find target DOM"});
-                return true;
+                return false;
             }
         }
-        sendResponse({status: "success"});
-    });
-
+        return true;
+    }
 
     function getOCR(captcha_id) {
         var image = new Image();
