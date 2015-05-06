@@ -45,9 +45,10 @@
                 alert(regex.exec(pageHTML)[1]);
                 return;
             }
+            console.log(response);
             is_auto = (response.is_auto === "true");
-            if (suc && re){
-                MyUtils.el(is_auto).submit();
+            if (suc && is_auto){
+                MyUtils.el(response.form_id).submit();
             }
         });
 
